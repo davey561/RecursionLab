@@ -22,26 +22,15 @@ public class Recursion {
   public static boolean subsetSumHelper(int [] arr, int target, int index){
     //if haven't run out of remaining integeres in array yet
     if(index<arr.length){
-      //System.out.println("in subsetSumHelper with first value in array " + arr[index] + " and target "+ target);
       //If the target is equal to the first item in the array, we can indeed make the sum, return true;
-      if(arr[index] == target){
-        //System.out.println(arr[index] + " equals " + target);
-        return true;
-      }
-      //then, check possibilites that include three
-      if(subsetSumHelper(arr, target-arr[index], index+1)){
-        //System.out.println("possibilities that include " + arr[index]);
-        return true;
-      }
-
-      //check possibilites that don't include three
-      if(subsetSumHelper(arr, target, index+1)) {
-        //System.out.println("possibilities that include " + arr[index]);
-        return true;
-      }
-      //if no possibilities include three, return false
-      return false;
+      if(arr[index] == target) return true;
+      //Then, check possibilites that include arr[index]
+      if(subsetSumHelper(arr, target-arr[index], index+1)) return true;
+      //Check possibilites that don't include three
+      if(subsetSumHelper(arr, target, index+1)) return true;
+      //If no possibilities include arr[index], return false
     }
+    //then, given that no subsets sum to target:
     return false;
   }
 
@@ -49,9 +38,9 @@ public class Recursion {
 
   /*
   * Return number of cannoballs in pyramid with the given `height`.
-  * pre:
-  * post:
-  * Big-O runtime:
+  * pre: height needs to be 1 or greater
+  * post: will return a positive integer
+  * Big-O runtime: ~height
   */
   public static int countCannonballs(int height) {
     if(height == 1) return 1;
@@ -68,6 +57,14 @@ public class Recursion {
   * Big-O runtime:
   */
   public static boolean isPalindrome(String str) {
+    if(str.equals(""))
+      return true;
+    if(str.length()==1)
+      return true;
+    if(str.charAt(0)==str.charAt(str.length()-1)){
+      return isPalindrome(str.substring(1, str.length()-1));
+    }
+
     return false;
   }
 
@@ -81,7 +78,14 @@ public class Recursion {
   * post:
   * Big-O runtime:
   */
+  static String [] bracketTypes = new String []{"()","{}","[]"};
   public static boolean isBalanced(String str) {
+    if(str.equals("")) return true;
+    for(String brack: bracketTypes){
+      if(str.indexOf(brack)!=-1){
+        return isBalanced(str.replace(brack, ""));
+      }
+    }
     return false;
   }
 
@@ -95,7 +99,7 @@ public class Recursion {
   * Big-O runtime:
   */
   public static void substrings(String str) {
-    System.out.println(str);
+    substringHelper(str, "");
   }
 
   /*
@@ -107,8 +111,34 @@ public class Recursion {
   * post:
   * Big-O runtime:
   */
-  public static void substringHelper(String str, String soFar) {
+  // public static void substringHelper(StringBuilder str, int soFar) {
+  //   //System.out.println("string in helper: " + str);
+  //   if (soFar==str.length()){
+  //     if(!str.toString().equals("")){
+  //       System.out.println(str.toString());
+  //     }
+  //   }
+  //   //else if there are still letters remaining in the array
+  //   else if(soFar<str.length()){
+  //     //keep letter at soFar, now consider next letter
+  //     substringHelper(str, soFar+1);
+  //     //remover letter at index soFar, now consider next letter
+  //     substringHelper(str.deleteCharAt(soFar), soFar);
+  //   }
+  // }
 
+  public static void substringHelper(String str, String soFar) {
+    //System.out.println("string in helper: " + str);
+    if (str.length()==0){
+        System.out.println(soFar);
+    }
+    //else if there are still letters remaining in the array
+    else if(str.length()>0){
+      //keep letter at soFar, now consider next letter
+      substringHelper(str.substring(1, str.length()), soFar + str.substring(0,1));
+      //remover letter at index soFar, now consider next letter
+      substringHelper(str.substring(1, str.length()), soFar);
+    }
   }
 
   /*****  5  ***************************************************/
@@ -164,18 +194,23 @@ public class Recursion {
 
     // Please add your own tests to supplement these
     // Not all cases are thoroughly checked!!!
-
+    int target = 21;
+    int [] setOfNums = new int []{3,7,8,15};
+    System.out.println("can make sum " + target + "? " + canMakeSum(setOfNums, target));
     System.out.println(countCannonballs(3));
     System.out.println(countCannonballs(10));
 
+    System.out.println("Expect true, false, true: ");
     System.out.println(isPalindrome("mom"));
     System.out.println(isPalindrome("deeded"));
     System.out.println(isPalindrome("ablewasIereIsawelba"));
 
+    System.out.println("Expect true, true, false");
     System.out.println(isBalanced("[{[()()]}]"));
     System.out.println(isBalanced("[{[()()]}][{[()()]}]"));
     System.out.println(isBalanced("[{[()()]}{]{[()()]}]"));
 
+    System.out.println("Expect abc, ab, bc, ac, a, b, c");
     substrings("abc");
     System.out.println();
     substrings("CSCI136");
