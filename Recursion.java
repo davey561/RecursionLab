@@ -9,7 +9,39 @@ import structure5.*;
 public class Recursion {
 
   /***** Warmup 0.2 ********************************************/
-  public static boolean canMakeSum(int setOfNums[], int targetSum) {
+  /*
+  * Return true if `str` is a palindrome.
+  * pre: arr cannot have null values, target must be nonnegative
+  * post:
+  * Big-O runtime:
+  */
+  public static boolean canMakeSum(int [] arr, int target){
+      return subsetSumHelper(arr, target, 0);
+  }
+  //helper method to be called recursively for canMakeSum
+  public static boolean subsetSumHelper(int [] arr, int target, int index){
+    //if haven't run out of remaining integeres in array yet
+    if(index<arr.length){
+      //System.out.println("in subsetSumHelper with first value in array " + arr[index] + " and target "+ target);
+      //If the target is equal to the first item in the array, we can indeed make the sum, return true;
+      if(arr[index] == target){
+        //System.out.println(arr[index] + " equals " + target);
+        return true;
+      }
+      //then, check possibilites that include three
+      if(subsetSumHelper(arr, target-arr[index], index+1)){
+        //System.out.println("possibilities that include " + arr[index]);
+        return true;
+      }
+
+      //check possibilites that don't include three
+      if(subsetSumHelper(arr, target, index+1)) {
+        //System.out.println("possibilities that include " + arr[index]);
+        return true;
+      }
+      //if no possibilities include three, return false
+      return false;
+    }
     return false;
   }
 
@@ -22,7 +54,8 @@ public class Recursion {
   * Big-O runtime:
   */
   public static int countCannonballs(int height) {
-    return 0;
+    if(height == 1) return 1;
+    return ((int)Math.pow(height, 2) + countCannonballs(height-1));
   }
 
 

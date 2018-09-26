@@ -1,4 +1,5 @@
 class preLab3{
+  //need first element in args to be the target number
   public static void main(String[] args) {
     System.out.println("digit sum" +digitSum( 1231423412));
     int target = Integer.parseInt(args[0]);
@@ -36,32 +37,5 @@ class preLab3{
   //     return canMakeSum(setOfLessNums, targetSum);
   //   }
   // }
-  public static boolean canMakeSum(int [] arr, int target){
-      return subsetSumHelper(arr, target, 0);
-  }
-  public static boolean subsetSumHelper(int [] arr, int target, int index){
-    //if haven't run out of remaining integeres in array yet
-    if(index<arr.length){
-      System.out.println("in subsetSumHelper with first value in array " + arr[index] + " and target "+ target);
-      //If the target is equal to the first item in the array, we can indeed make the sum, return true;
-      if(arr[index] == target){
-        System.out.println(arr[index] + " equals " + target);
-        return true;
-      }
-      //then, check possibilites that include three
-      if(subsetSumHelper(arr, target-arr[index], index+1)){
-        System.out.println("possibilities that include " + arr[index]);
-        return true;
-      }
 
-      //check possibilites that don't include three
-      if(subsetSumHelper(arr, target, index+1)) {
-        System.out.println("possibilities that include " + arr[index]);
-        return true;
-      }
-      //if no possibilities include three, return false
-      return false;
-    }
-    return false;
-  }
 }
