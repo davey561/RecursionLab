@@ -1,4 +1,4 @@
-class preLabProb1{
+class preLab3{
   public static void main(String[] args) {
     System.out.println(digitSum(1231423412));
   }
