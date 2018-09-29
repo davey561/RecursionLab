@@ -111,22 +111,9 @@ public class Recursion {
   * post:
   * Big-O runtime:
   */
-  // public static void substringHelper(StringBuilder str, int soFar) {
-  //   //System.out.println("string in helper: " + str);
-  //   if (soFar==str.length()){
-  //     if(!str.toString().equals("")){
-  //       System.out.println(str.toString());
-  //     }
-  //   }
-  //   //else if there are still letters remaining in the array
-  //   else if(soFar<str.length()){
-  //     //keep letter at soFar, now consider next letter
-  //     substringHelper(str, soFar+1);
-  //     //remover letter at index soFar, now consider next letter
-  //     substringHelper(str.deleteCharAt(soFar), soFar);
-  //   }
-  // }
 
+  //As it is written currently, this method prints out every combination of particular letters,
+  //treating letters as distinct if they show up in different places in the string input (regardless of whether they are actually distinct letters)
   public static void substringHelper(String str, String soFar) {
     //System.out.println("string in helper: " + str);
     if (str.length()==0){
@@ -151,7 +138,22 @@ public class Recursion {
   * Big-O runtime:
   */
   public static void printInBinary(int number) {
-    System.out.println(0);
+    // String binaryRep = "";
+    // if(number == 0 || number == 1){
+    //   binaryRep += number;
+    // }
+    // else{
+    //   binaryRep += printInBinary
+    // }
+    // System.out.println(0);
+
+    if(number == 0 || number ==1){
+      System.out.print(number);
+    }
+    else{
+      printInBinary(number/2);
+      System.out.print(number%2);
+    }
   }
 
 
@@ -220,11 +222,11 @@ public class Recursion {
     substrings("");
     System.out.println();
 
-    printInBinary(0);
+    printInBinary(0); //expect 0
     System.out.println();
-    printInBinary(30);
+    printInBinary(30); //expect 11110
     System.out.println();
-    printInBinary(1);
+    printInBinary(1); //expect 1
     System.out.println();
     printInBinary(110);
     System.out.println();
@@ -232,6 +234,7 @@ public class Recursion {
     System.out.println();
     printInBinary(43);
     System.out.println();
+
 
     int[] numSet = {2, 5, 7, 12, 16, 21, 30};
     System.out.println(canMakeSum(numSet, 21));
