@@ -4,7 +4,7 @@
 * Starter code for the recursion lab.
 *
 */
-import structure5.*;
+//import structure5.*;
 
 public class Recursion {
 
@@ -217,7 +217,8 @@ public class Recursion {
       if(nums[index] == targetSum) {
       //  System.out.println("number being considered, " + nums[index] + ", is target sum.");
       //  System.out.print(nums[index] + "| ");
-        return 1;
+        return 1 + (countSubSetSumHelper(nums, targetSum-nums[index], index+1)
+                + countSubSetSumHelper(nums, targetSum, index+1));
       }
       else{
         return (countSubSetSumHelper(nums, targetSum-nums[index], index+1)
@@ -241,24 +242,27 @@ public class Recursion {
   //helper method to be called recursively for printSubSetSum
   public static boolean printSubSetSumsHelper(int [] nums, int targetSum, int index, String soFar){
     //if haven't run out of remaining integers in array yet
+    boolean brady = false;
     if(index<nums.length){
       //If the target is equal to the first item in the array, we can indeed make the sum, return true;
+      //System.out.println(index + ": looking at " + nums[index] + ". " + "targetSum is " + targetSum);
       if(nums[index] == targetSum) {
-        System.out.println("number being considered, " + nums[index] + ", is target sum.");
-        System.out.print(soFar + nums[index] + "|     ");
+        //if(targetSum == 21){System.out.println("it's 21 szn!!!!");}
+        System.out.println(soFar + nums[index]);
         if(index!=0)return true;
       }
       //Then, check possibilites that include arr[index]
-      if(printSubSetSumsHelper(nums, targetSum-nums[index], index+1, soFar +  (nums[index] + "| "))){
-        //System.out.print(nums[index] + "| testing possibilities with this num"/*+"(testing poss's with this num) "*/);
-        if(index!=0)return true;
+      //System.out.println(index + ": considering possibilities with " + nums[index] + ". ");
+      if(printSubSetSumsHelper(nums, targetSum-nums[index], index+1, soFar +  (nums[index] + ", "))){
+        if(index!=0)brady= true;
       }
       //Check possibilites that don't include three
+      //System.out.println(index + ": now considering possibilities without " + nums[index] + ". ");
       if(printSubSetSumsHelper(nums, targetSum, index+1, soFar)){
-        //System.out.println("now considering possibilities withOUT " + nums[index]);
-        if(index!=0)return true;
+        if(index!=0)brady= true;
       }
-      //If no possibilities include arr[index], return false
+
+      return brady;
     }
     //then, given that no subsets sum to target:
     return false;
@@ -315,7 +319,8 @@ public class Recursion {
     System.out.println();
 
 
-    int[] numSet = {2, 5, 7, 12, 16, 21, 30};
+    //int[] numSet = {2, 5, 7, 12, 16, 21, 30};
+    int[] numSet = {2, 5, 7, 12, 16, 21};
     System.out.println(canMakeSum(numSet, 21));
     System.out.println(canMakeSum(numSet, 22));
     System.out.println(canMakeSum(numSet, 3));
@@ -331,11 +336,20 @@ public class Recursion {
     System.out.println(countSubSetSumSolutions(numSet, 22));
     System.out.println(countSubSetSumSolutions(numSet, 3));
     System.out.println(countSubSetSumSolutions(numSet, 30));
+    System.out.println(countSubSetSumSolutions(new int[] {-1,1,0}, 0));
 
+    System.out.println("  printSubSetSums(new int []{3,4,2,7}, 7) :");
+    printSubSetSums(new int []{2,4,3,7}, 7);
+    System.out.println("\nprintSubSetSums(numSet, 21);");
     printSubSetSums(numSet, 21);
-    // printSubSetSums(numSet, 22);
-    // printSubSetSums(numSet, 3);
-     printSubSetSums(numSet, 30);
+    System.out.println("Get to 22");
+    printSubSetSums(numSet, 22);
+    System.out.println("Get to 3");
+    printSubSetSums(numSet, 3);
+    System.out.println("Get to 30");
+    printSubSetSums(numSet, 30);
+    System.out.println("Get to 0");
+    printSubSetSums(new int[] {-1,1,0}, 0);
 
   }
 }
