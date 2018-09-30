@@ -4,33 +4,37 @@
 * Starter code for the recursion lab.
 *
 */
-import structure5.*;
+//import structure5.*;
 
 public class Recursion {
 
   /***** Warmup 0.2 ********************************************/
   /*
-  * Return true if `str` is a palindrome.
+  * Return true if can make the target from summing any subset of arr.
   * pre: arr cannot have null values, target must be nonnegative
-  * post:
-  * Big-O runtime:
+  * post: whether the sum can be made
+  * Big-O runtime: O(2^arr.length) (same as helper method)
   */
   public static boolean canMakeSum(int [] arr, int target){
       return subsetSumHelper(arr, target, 0);
   }
-  //helper method to be called recursively for canMakeSum
+  /*
+  * helper method to be called recursively for canMakeSum
+  * pre: arr cannot have null values, target must be nonnegative
+  * post: whether the sum can be made
+  * Big-O runtime: O(2^arr.length)
+  */
   public static boolean subsetSumHelper(int [] arr, int target, int index){
-    //if haven't run out of remaining integeres in array yet
+    //if program hasn't run out of remaining integers in array yet
     if(index<arr.length){
-      //If the target is equal to the first item in the array, we can indeed make the sum, return true;
+      //if  target is equal to  first item in arr, sum can be made;
       if(arr[index] == target) return true;
-      //Then, check possibilites that include arr[index]
+      //Check whether any possibilites that include arr[index] sum to target;
       if(subsetSumHelper(arr, target-arr[index], index+1)) return true;
-      //Check possibilites that don't include three
+      //Check whether any possibilites that don't include arr[index] sum to target;
       if(subsetSumHelper(arr, target, index+1)) return true;
-      //If no possibilities include arr[index], return false
     }
-    //then, given that no subsets sum to target:
+    //if here, then no subsets of arr sum to target:
     return false;
   }
 
@@ -292,25 +296,21 @@ public class Recursion {
   */
   public static void main(String args[]) {
 
-    // Please add your own tests to supplement these
-    // Not all cases are thoroughly checked!!!
-    int target = 21;
-    int [] setOfNums = new int []{3,7,8,15};
-    //System.out.println("can make sum " + target + "? " + canMakeSum(setOfNums, target));
-    System.out.println(countCannonballs(3));
-    System.out.println(countCannonballs(10));
+    System.out.println("\nCANNON BALL");
+    System.out.println("cannon ball pyramid with height 3: " + countCannonballs(3));
+    System.out.println("cannon ball pyramid with height 10: " + countCannonballs(10));
 
-    System.out.println("CanMakeSum: expect: true, false, true: ");
+    System.out.println("\nIS PALINDRONE. Expect: true, false, true: ");
     System.out.println(isPalindrome("mom"));
     System.out.println(isPalindrome("deeded"));
     System.out.println(isPalindrome("ablewasIereIsawelba"));
 
-    System.out.println("CanMakeSum: expect: true, true, false");
+    System.out.println("\nIS BALANCED. Expect: true, true, false");
     System.out.println(isBalanced("[{[()()]}]"));
     System.out.println(isBalanced("[{[()()]}][{[()()]}]"));
     System.out.println(isBalanced("[{[()()]}{]{[()()]}]"));
 
-    System.out.println("CanMakeSum: expect: abc, ab, bc, ac, a, b, c");
+    System.out.println("\nSUBSTRING: abc, CSCI136, a, [blank]");
     substrings("abc");
     System.out.println();
     substrings("CSCI136");
@@ -320,6 +320,8 @@ public class Recursion {
     substrings("");
     System.out.println();
 
+
+    System.out.println("\nPRINT IN BINARY: 0, 30, 1, 110, 2048, 43");
     printInBinary(0); //expect 0
     System.out.println();
     printInBinary(30); //expect 11110
@@ -333,38 +335,39 @@ public class Recursion {
     printInBinary(43);
     System.out.println();
 
-
-    //int[] numSet = {2, 5, 7, 12, 16, 21, 30};
+    System.out.println("CAN MAKE SUM? {2, 5, 7, 12, 16, 21}. 21, 22, 3, 30");
     int[] numSet = {2, 5, 7, 12, 16, 21};
     System.out.println(canMakeSum(numSet, 21));
     System.out.println(canMakeSum(numSet, 22));
     System.out.println(canMakeSum(numSet, 3));
     System.out.println(canMakeSum(numSet, 30));
 
+    System.out.println("PRINT SUBSET SUM. {2, 5, 7, 12, 16, 21}. 21, 22, 3, 30");
     //System.out.println("Testing printSubSetSum method, with inputs 21, 22, 3, 30:");
     System.out.println(printSubSetSum(numSet, 21));
     System.out.println(printSubSetSum(numSet, 22));
     System.out.println(printSubSetSum(numSet, 3));
     System.out.println(printSubSetSum(numSet, 30));
 
+    System.out.println("COUNT SUBSET SUM SOLUTIONS. {2, 5, 7, 12, 16, 21}. 21, 22, 3, 30");
     System.out.println(countSubSetSumSolutions(numSet, 21));
     System.out.println(countSubSetSumSolutions(numSet, 22));
     System.out.println(countSubSetSumSolutions(numSet, 3));
     System.out.println(countSubSetSumSolutions(numSet, 30));
-    System.out.println(countSubSetSumSolutions(new int[] {-1,1,0}, 0));
+    System.out.println("now with new set {-1,1,0}, get to 0: " +countSubSetSumSolutions(new int[] {-1,1,0}, 0));
 
-    System.out.println("  printSubSetSums(new int []{3,4,2,7}, 7) :");
-    printSubSetSums(new int []{2,4,3,7}, 7);
-    System.out.println("\nprintSubSetSums(numSet, 21);");
+    System.out.println("PRINT SUBSET SUMSSSS: {2, 5, 7, 12, 16, 21}. 21, 22, 2, 30");
     printSubSetSums(numSet, 21);
-    System.out.println("Get to 22");
+    System.out.println();
     printSubSetSums(numSet, 22);
-    System.out.println("Get to 3");
+    System.out.println();
     printSubSetSums(numSet, 3);
-    System.out.println("Get to 30");
+    System.out.println();
     printSubSetSums(numSet, 30);
-    System.out.println("Get to 0");
+    System.out.println();
     printSubSetSums(new int[] {-1,1,0}, 0);
+    System.out.println("now with different set of nums: 2, 4, 3, 7. get to 7");
+    printSubSetSums(new int []{2,4,3,7}, 7);
 
   }
 }
