@@ -40,7 +40,7 @@ public class Recursion {
   * Return number of cannoballs in pyramid with the given `height`.
   * pre: height needs to be 1 or greater
   * post: will return a positive integer
-  * Big-O runtime: ~height
+  * Big-O runtime: O(height)
   */
   public static int countCannonballs(int height) {
     if(height == 1) return 1;
@@ -52,9 +52,9 @@ public class Recursion {
 
   /*
   * Return true if `str` is a palindrome.
-  * pre:
-  * post:
-  * Big-O runtime:
+  * pre: str cannot be null
+  * post: whether the string is a palindrone (reads the same forwards and backwards)
+  * Big-O runtime: O(str.length())
   */
   public static boolean isPalindrome(String str) {
     if(str.equals(""))
@@ -74,9 +74,9 @@ public class Recursion {
   * Return true if `str` is a string of matched parens,
   * brackets, and braces.
   *
-  * pre:
-  * post:
-  * Big-O runtime:
+  * pre: str must be an expression only consisting of closed or open parentheses, brackets, or braces
+  * post: will whether the braces in the string are all matching
+  * Big-O runtime: O(str.length()^2)
   */
   static String [] bracketTypes = new String []{"()","{}","[]"};
   public static boolean isBalanced(String str) {
@@ -94,9 +94,9 @@ public class Recursion {
   /*
   * Print all substrings of `str`.  (Order does not matter.)
   *
-  * pre:
-  * post:
-  * Big-O runtime:
+  * pre: str must be a non-null
+  * post: will print out all of the substrings of that string
+  * Big-O runtime: 2^str.length() (same as substringHelper's runtime)
   */
   public static void substrings(String str) {
     substringHelper(str, "");
@@ -107,9 +107,9 @@ public class Recursion {
   * `soFar` keeps track of the characters currently in the substring
   *   being built
   *
-  * pre:
-  * post:
-  * Big-O runtime:
+  * pre: str must be a non-null
+  * post: will print out all of the substrings of that string
+  * Big-O runtime: O(2^str.length())
   */
 
   //As it is written currently, this method prints out every combination of particular letters,
@@ -121,9 +121,9 @@ public class Recursion {
     }
     //else if there are still letters remaining in the array
     else if(str.length()>0){
-      //keep letter at soFar, now consider next letter
+      //move letter from str to soFar, now consider next letter
       substringHelper(str.substring(1, str.length()), soFar + str.substring(0,1));
-      //remover letter at index soFar, now consider next letter
+      //remove first letter at from str, now consider next letter
       substringHelper(str.substring(1, str.length()), soFar);
     }
   }
@@ -133,9 +133,9 @@ public class Recursion {
   /*
   * Print `number` in binary
   *
-  * pre:
-  * post:
-  * Big-O runtime:
+  * pre: number must be a nonnegative integer
+  * post: will print out its binary representation
+  * Big-O runtime: O(log base ten of number, i.e. the number's number of digits)
   */
   public static void printInBinary(int number) {
     // String binaryRep = "";
@@ -166,11 +166,19 @@ public class Recursion {
   *
   * pre:
   * post:
-  * Big-O runtime:
+  * Big-O runtime: O(2^nums.length)
   */
   public static boolean printSubSetSum(int nums[], int targetSum) {
     return printSubSetSumHelper(nums, targetSum, 0);
   }
+  /*
+  * Helper method for printSubSetSum
+  * FOR A FUNCTION THAT PRINTS ALL SUBSETS, SEE "printSubSetSums" (PLURAL)
+  *
+  * pre:
+  * post:
+  * Big-O runtime: O(2^nums.length)
+  */
   //helper method to be called recursively for printSubSetSum
   public static boolean printSubSetSumHelper(int [] nums, int targetSum, int index){
     //if haven't run out of remaining integers in array yet
@@ -204,7 +212,7 @@ public class Recursion {
   *
   * pre:
   * post:
-  * Big-O runtime:
+  * Big-O runtime: O(2^nums.length)
   */
   public static int countSubSetSumSolutions(int nums[], int targetSum) {
     return countSubSetSumHelper(nums, targetSum, 0);
@@ -234,12 +242,19 @@ public class Recursion {
   *
   * pre:
   * post:
-  * Big-O runtime:
+  * Big-O runtime: O(2^nums.length()) (same as printSubSetSumsHelper)
   */
   public static void printSubSetSums(int nums[], int targetSum) {
     printSubSetSumsHelper(nums, targetSum, 0, "");
   }
-  //helper method to be called recursively for printSubSetSum
+
+  /*
+  *helper method to be called recursively for printSubSetSums
+  *
+  * pre:
+  * post:
+  * Big-O runtime:  O(2^nums.length())
+  */
   public static boolean printSubSetSumsHelper(int [] nums, int targetSum, int index, String soFar){
     //if haven't run out of remaining integers in array yet
     boolean brady = false;
@@ -249,7 +264,7 @@ public class Recursion {
       if(nums[index] == targetSum) {
         //if(targetSum == 21){System.out.println("it's 21 szn!!!!");}
         System.out.println(soFar + nums[index]);
-        if(index!=0)return true;
+        if(index!=0)brady = true;
       }
       //Then, check possibilites that include arr[index]
       //System.out.println(index + ": considering possibilities with " + nums[index] + ". ");
