@@ -162,7 +162,7 @@ public class Recursion {
 
   /*
   * Return whether a subset of the numbers in nums add up to sum,
-  * and print them out.
+  * and print them out. FOR A FUNCTION THAT PRINTS ALL SUBSETS, SEE "printSubSetSums" (PLURAL)
   *
   * pre:
   * post:
@@ -210,24 +210,53 @@ public class Recursion {
     return countSubSetSumHelper(nums, targetSum, 0);
   }
   //helper method to be called recursively for printSubSetSum
-  public static boolean countSubSetSumHelper(int [] nums, int targetSum, int index){
+  public static int countSubSetSumHelper(int [] nums, int targetSum, int index){
     //if haven't run out of remaining integers in array yet
     if(index<nums.length){
       //If the target is equal to the first item in the array, we can indeed make the sum, return true;
       if(nums[index] == targetSum) {
       //  System.out.println("number being considered, " + nums[index] + ", is target sum.");
-        System.out.print(nums[index] + "| ");
-        return true;
+      //  System.out.print(nums[index] + "| ");
+        return 1;
+      }
+      else{
+        return (countSubSetSumHelper(nums, targetSum-nums[index], index+1)
+                + countSubSetSumHelper(nums, targetSum, index+1));
+      }
+    }
+    //then, given that no subsets sum to target:
+    return 0;
+  }
+
+  /*
+  * Prints out ALL sets of numbers in nums that add up to sum.
+  *
+  * pre:
+  * post:
+  * Big-O runtime:
+  */
+  public static void printSubSetSums(int nums[], int targetSum) {
+    printSubSetSumsHelper(nums, targetSum, 0, "");
+  }
+  //helper method to be called recursively for printSubSetSum
+  public static boolean printSubSetSumsHelper(int [] nums, int targetSum, int index, String soFar){
+    //if haven't run out of remaining integers in array yet
+    if(index<nums.length){
+      //If the target is equal to the first item in the array, we can indeed make the sum, return true;
+      if(nums[index] == targetSum) {
+        System.out.println("number being considered, " + nums[index] + ", is target sum.");
+        System.out.print(soFar + nums[index] + "|     ");
+        if(index!=0)return true;
       }
       //Then, check possibilites that include arr[index]
-      if(printSubSetSumHelper(nums, targetSum-nums[index], index+1)){
-        System.out.print(nums[index] + "| "/*+"(testing poss's with this num) "*/);
-        return true;
+      if(printSubSetSumsHelper(nums, targetSum-nums[index], index+1, soFar +  (nums[index] + "| "))){
+        //System.out.print(nums[index] + "| testing possibilities with this num"/*+"(testing poss's with this num) "*/);
+        if(index!=0)return true;
       }
       //Check possibilites that don't include three
-      if(printSubSetSumHelper(nums, targetSum, index+1)){
+      if(printSubSetSumsHelper(nums, targetSum, index+1, soFar)){
         //System.out.println("now considering possibilities withOUT " + nums[index]);
-        return true;
+        if(index!=0)return true;
       }
       //If no possibilities include arr[index], return false
     }
@@ -302,6 +331,11 @@ public class Recursion {
     System.out.println(countSubSetSumSolutions(numSet, 22));
     System.out.println(countSubSetSumSolutions(numSet, 3));
     System.out.println(countSubSetSumSolutions(numSet, 30));
+
+    printSubSetSums(numSet, 21);
+    // printSubSetSums(numSet, 22);
+    // printSubSetSums(numSet, 3);
+     printSubSetSums(numSet, 30);
 
   }
 }
