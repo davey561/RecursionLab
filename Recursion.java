@@ -4,7 +4,7 @@
 * Starter code for the recursion lab.
 *
 */
-//import structure5.*;
+import structure5.*;
 
 public class Recursion {
 
