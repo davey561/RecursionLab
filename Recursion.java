@@ -168,8 +168,8 @@ public class Recursion {
   * Return whether a subset of the numbers in nums add up to sum,
   * and print them out. FOR A FUNCTION THAT PRINTS ALL SUBSETS, SEE "printSubSetSums" (PLURAL)
   *
-  * pre:
-  * post:
+  * pre: nums needs to be full array of integer (ie no null elements), target sum a nonnegative integer
+  * post: prints all subsets that sum to targetSum
   * Big-O runtime: O(2^nums.length)
   */
   public static boolean printSubSetSum(int nums[], int targetSum) {
@@ -179,8 +179,8 @@ public class Recursion {
   * Helper method for printSubSetSum
   * FOR A FUNCTION THAT PRINTS ALL SUBSETS, SEE "printSubSetSums" (PLURAL)
   *
-  * pre:
-  * post:
+  * pre: nums needs to be full array of integer (ie no null elements), targetSum and index>=0
+  * post: prints all possible subsets of the subset of nums that is without the elements with indices less than 'index'
   * Big-O runtime: O(2^nums.length)
   */
   //helper method to be called recursively for printSubSetSum
@@ -214,8 +214,8 @@ public class Recursion {
   * Return the number of different ways elements in nums can be
   * added together to equal sum (you do not need to print them all).
   *
-  * pre:
-  * post:
+  * pre: nums needs to be full array of integer (ie no null elements), targetSum>=0
+  * post: the number of subsets in the given nums set whose sum is the target
   * Big-O runtime: O(2^nums.length)
   */
   public static int countSubSetSumSolutions(int nums[], int targetSum) {
@@ -244,8 +244,8 @@ public class Recursion {
   /*
   * Prints out ALL sets of numbers in nums that add up to sum.
   *
-  * pre:
-  * post:
+  * pre: nums needs to be full array of integer (ie no null elements), targetSum>=0
+  * post: prints each of the subsets in the given nums set whose sum is the target
   * Big-O runtime: O(2^nums.length()) (same as printSubSetSumsHelper)
   */
   public static void printSubSetSums(int nums[], int targetSum) {
@@ -255,8 +255,8 @@ public class Recursion {
   /*
   *helper method to be called recursively for printSubSetSums
   *
-  * pre:
-  * post:
+  * pre: nums needs to be full array of integer (ie no null elements), targetSum>=0
+  * post: prints each of the subsets of the subset of nums that is without the elememts with indices less than 'index' whose sum is the target
   * Big-O runtime:  O(2^nums.length())
   */
   public static boolean printSubSetSumsHelper(int [] nums, int targetSum, int index, String soFar){
