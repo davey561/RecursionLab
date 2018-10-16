@@ -46,6 +46,7 @@ public class Recursion {
   * post: will return a positive integer
   * Big-O runtime: O(height)
   */
+  //$ Height of 0 is OK! just return 0: an empty pile has no cannonballs
   public static int countCannonballs(int height) {
     if(height == 1) return 1;
     return ((int)Math.pow(height, 2) + countCannonballs(height-1));
@@ -59,6 +60,10 @@ public class Recursion {
   * pre: str cannot be null
   * post: whether the string is a palindrone (reads the same forwards and backwards)
   * Big-O runtime: O(str.length())
+  */
+  /*$
+    Although you make O(n) calls, each call has a linear operation
+    that takes O(n) time (substring). Thus, the total runtime is O(n^2)
   */
   public static boolean isPalindrome(String str) {
     if(str.equals(""))
@@ -83,6 +88,7 @@ public class Recursion {
   * Big-O runtime: O(str.length()^2)
   */
   static String [] bracketTypes = new String []{"()","{}","[]"};
+  //$ clever!
   public static boolean isBalanced(String str) {
     if(str.equals("")) return true;
     for(String brack: bracketTypes){
@@ -141,6 +147,8 @@ public class Recursion {
   * post: will print out its binary representation
   * Big-O runtime: O(log base ten of number, i.e. the number's number of digits)
   */
+  //$ It's actually the number of binary digits, so O(log_2(n)) instead of
+  //$ log base 10
   public static void printInBinary(int number) {
     // String binaryRep = "";
     // if(number == 0 || number == 1){
